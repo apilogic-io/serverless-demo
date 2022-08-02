@@ -1,6 +1,6 @@
 type Query {
   getPostById(id: String!): Post
-  findPosts(author: String): [Post]
+  findPosts(author: String): [PostList]
 }
 
 type Mutation {

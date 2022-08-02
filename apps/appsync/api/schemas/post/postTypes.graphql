@@ -6,6 +6,14 @@ type Post {
   author: Author
 }
 
+type PostList {
+  id: String
+  title: String
+  status: PostStatuses
+  content: String
+  author: String
+}
+
 type Author {
   username: String
 }
