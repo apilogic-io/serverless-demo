@@ -3,6 +3,8 @@
   "version": 2,
   "projects": {
     "appsync": "apps/appsync",
+    "blog": "apps/blog",
+    "blog-e2e": "apps/blog-e2e",
     "dynamodb": "apps/dynamodb",
     "dynamodb-streams": "apps/dynamodb-streams",
     "elastic-migrations": "apps/elastic-migrations",
