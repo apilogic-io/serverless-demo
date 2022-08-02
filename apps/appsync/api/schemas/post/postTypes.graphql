@@ -1,5 +1,6 @@
 type Post {
-  title: String!
+  id: String
+  title: String
   status: PostStatuses
   content: String
   author: Author

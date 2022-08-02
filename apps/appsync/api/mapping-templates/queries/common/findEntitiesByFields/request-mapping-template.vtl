@@ -1,0 +1,20 @@
+#if($ctx.stash.searchTerm)
+  #set($query = {
+    "query_string" : {
+      "query" : "$ctx.stash.searchTerm",
+      "fields" : $ctx.stash.fields
+    }
+  })
+#else
+  #set($query = { "match_all" : {} })
+#end
+{
+  "version": "2017-02-28",
+  "operation": "POST",
+  "path": "/$ctx.stash.indexName/_search",
+  "params": {
+    "body": {
+      "query": $util.toJson($query)
+    }
+  }
+}

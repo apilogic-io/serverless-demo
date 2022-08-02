@@ -2,3 +2,7 @@
   dataSource: Posts # This is a placeholder dataSource to ensure compliance with appsync serverless plugin
   request: ${self:custom.apilogic.apiMappings}/mutations/common/modifyEntities/request-mapping-template.vtl
   response: ${self:custom.apilogic.apiMappings}/mutations/common/modifyEntities/response-mapping-template.vtl
+- name: findEntitiesByFields
+  dataSource: esInstance
+  request: ${self:custom.apilogic.apiMappings}/queries/common/findEntitiesByFields/request-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/queries/common/findEntitiesByFields/response-mapping-template.vtl

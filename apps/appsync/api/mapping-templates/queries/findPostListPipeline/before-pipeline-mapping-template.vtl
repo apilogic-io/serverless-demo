@@ -1,0 +1,6 @@
+#set($fields = [])
+$util.qr($ctx.stash.put("indexName", "posts"))
+$util.qr($fields.add("author"))
+$util.qr($ctx.stash.put("fields", $fields))
+$util.qr($ctx.stash.put("searchTerm", $ctx.args.author))
+{}

@@ -18,6 +18,13 @@
   kind: PIPELINE
   field: getPostById
   request: ${self:custom.apilogic.apiMappings}/queries/getPostByIdPipeline/before-pipeline-mapping-template.vtl
-  response: ${self:custom.apilogic.apiMappings}/queries/common/after-pipeline-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/queries/common/getEntityPipeline/after-pipeline-mapping-template.vtl
   functions:
     - getPost
+- type: Query
+  kind: PIPELINE
+  field: findPosts
+  request: ${self:custom.apilogic.apiMappings}/queries/findPostListPipeline/before-pipeline-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/queries/common/findEntitiesPipeline/after-pipeline-mapping-template.vtl
+  functions:
+    - findEntitiesByFields

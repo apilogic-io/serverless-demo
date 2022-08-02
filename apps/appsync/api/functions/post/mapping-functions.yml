@@ -2,3 +2,7 @@
   dataSource: Posts
   request: ${self:custom.apilogic.apiMappings}/queries/common/getEntity/request-mapping-template.vtl
   response: ${self:custom.apilogic.apiMappings}/queries/common/getEntity/response-mapping-template.vtl
+- name: findEntitiesByFields
+  dataSource: esInstance
+  request: ${self:custom.apilogic.apiMappings}/queries/common/findEntitiesByFields/request-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/queries/common/findEntitiesByFields/response-mapping-template.vtl

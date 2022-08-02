@@ -1,0 +1,9 @@
+#set($result = [])
+#if(!$ctx.result.hits.hits.isEmpty())
+  #foreach($entry in $context.result.hits.hits)
+    $util.qr(${result.add($entry.get('_source'))})
+  #end
+#end
+
+$util.qr($ctx.stash.put("result", $result))
+{}
