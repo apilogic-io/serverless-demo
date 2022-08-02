@@ -1,0 +1,511 @@
+{
+  "Records": [
+    {
+      "eventSourceARN": "arn:aws:dynamodb:eu-west-1:undefined:Hotels",
+      "awsRegion": "ddblocal",
+      "eventID": "603b5b55-0162-4f01-bbce-9ae7d9d572b3",
+      "eventName": "INSERT",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "dynamodb": {
+        "ApproximateCreationDateTime": "2021-06-28T06:20:00.000Z",
+        "Keys": {
+          "owner_id": {
+            "S": "7d8ca528-4931-4254-9273-ea5ee853f271"
+          },
+          "hotel_id": {
+            "S": "4250b868-9a6c-4d41-a3d8-c17c89d588d3"
+          }
+        },
+        "NewImage": {
+          "longDescription": {
+            "M": {
+              "locale": {
+                "M": {
+                  "default": {
+                    "BOOL": false
+                  },
+                  "code": {
+                    "S": "RO"
+                  }
+                }
+              }
+            }
+          },
+          "rooms": {
+            "L": [
+              {
+                "M": {
+                  "amenities": {
+                    "L": [
+                      {
+                        "M": {
+                          "amenityCategory": {
+                            "S": "BEDROOM"
+                          },
+                          "name": {
+                            "S": "amenity1"
+                          },
+                          "type": {
+                            "S": "FACILITY"
+                          },
+                          "popular": {
+                            "BOOL": true
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "amenityCategory": {
+                            "S": "BATHROOM"
+                          },
+                          "name": {
+                            "S": "amenity2"
+                          },
+                          "type": {
+                            "S": "AMENITY"
+                          },
+                          "popular": {
+                            "BOOL": true
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "standardName": {
+                    "S": "For2"
+                  },
+                  "internal": {
+                    "BOOL": true
+                  },
+                  "external": {
+                    "BOOL": false
+                  },
+                  "description": {
+                    "S": "good room"
+                  },
+                  "active": {
+                    "BOOL": true
+                  },
+                  "type": {
+                    "S": "double"
+                  },
+                  "order": {
+                    "N": "1"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "amenities": {
+                    "L": [
+                      {
+                        "M": {
+                          "amenityCategory": {
+                            "S": "BEDROOM"
+                          },
+                          "name": {
+                            "S": "amenity1"
+                          },
+                          "type": {
+                            "S": "FACILITY"
+                          },
+                          "popular": {
+                            "BOOL": true
+                          }
+                        }
+                      },
+                      {
+                        "M": {
+                          "amenityCategory": {
+                            "S": "BATHROOM"
+                          },
+                          "name": {
+                            "S": "amenity2"
+                          },
+                          "type": {
+                            "S": "AMENITY"
+                          },
+                          "popular": {
+                            "BOOL": true
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "standardName": {
+                    "S": "ForAll"
+                  },
+                  "internal": {
+                    "BOOL": true
+                  },
+                  "external": {
+                    "BOOL": false
+                  },
+                  "description": {
+                    "S": "good app"
+                  },
+                  "active": {
+                    "BOOL": true
+                  },
+                  "type": {
+                    "S": "appartment"
+                  },
+                  "order": {
+                    "N": "1"
+                  }
+                }
+              }
+            ]
+          },
+          "adultsOnly": {
+            "BOOL": false
+          },
+          "airport_id": {
+            "S": "1"
+          },
+          "customFields": {
+            "L": [
+              {
+                "M": {
+                  "label": {
+                    "S": "label1"
+                  },
+                  "value": {
+                    "S": "value1"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "label": {
+                    "S": "label2"
+                  },
+                  "value": {
+                    "S": "value2"
+                  }
+                }
+              }
+            ]
+          },
+          "owner_id": {
+            "S": "7d8ca528-4931-4254-9273-ea5ee853f271"
+          },
+          "hotel_id": {
+            "S": "4250b868-9a6c-4d41-a3d8-c17c89d588d3"
+          },
+          "type": {
+            "S": "HOTEL"
+          },
+          "propertyType": {
+            "L": [
+              {
+                "S": "BUSINESS_HOTEL"
+              }
+            ]
+          },
+          "our_rating": {
+            "N": "3"
+          },
+          "seo": {
+            "M": {
+              "title": {
+                "S": "Rest"
+              },
+              "metaDescription": {
+                "S": "More rest"
+              }
+            }
+          },
+          "ageConfig": {
+            "M": {
+              "infant": {
+                "N": "3"
+              },
+              "adult": {
+                "N": "18"
+              },
+              "child": {
+                "N": "5"
+              }
+            }
+          },
+          "chain": {
+            "S": "HILTON"
+          },
+          "address": {
+            "S": "Straseni. Aron Pumnu"
+          },
+          "official_rating": {
+            "N": "10"
+          },
+          "active": {
+            "BOOL": true
+          },
+          "restrictions": {
+            "L": [
+              {
+                "M": {
+                  "country": {
+                    "L": [
+                      {
+                        "S": "1"
+                      },
+                      {
+                        "S": "2"
+                      }
+                    ]
+                  },
+                  "rooms": {
+                    "L": [
+                      {
+                        "S": "A"
+                      },
+                      {
+                        "S": "B"
+                      },
+                      {
+                        "S": "C"
+                      }
+                    ]
+                  },
+                  "minStay": {
+                    "M": {
+                      "apply": {
+                        "BOOL": true
+                      },
+                      "nights": {
+                        "N": "3"
+                      }
+                    }
+                  },
+                  "maxStay": {
+                    "M": {
+                      "apply": {
+                        "BOOL": true
+                      },
+                      "nights": {
+                        "N": "15"
+                      }
+                    }
+                  },
+                  "validOn": {
+                    "L": [
+                      {
+                        "S": "sdfs"
+                      }
+                    ]
+                  },
+                  "mustInclude": {
+                    "L": [
+                      {
+                        "S": "sdfs"
+                      }
+                    ]
+                  },
+                  "name": {
+                    "S": "Restriction1"
+                  },
+                  "type": {
+                    "S": "covid"
+                  }
+                }
+              }
+            ]
+          },
+          "internalNotes": {
+            "S": "asasdadsas"
+          },
+          "shortDescription": {
+            "M": {
+              "locale": {
+                "M": {
+                  "default": {
+                    "BOOL": false
+                  },
+                  "code": {
+                    "S": "RO"
+                  }
+                }
+              }
+            }
+          },
+          "distanceFrom": {
+            "M": {
+              "beach": {
+                "M": {
+                  "measure": {
+                    "S": "KM"
+                  },
+                  "distance": {
+                    "N": "1.5"
+                  },
+                  "location_id": {
+                    "S": "5"
+                  }
+                }
+              },
+              "cityCenter": {
+                "M": {
+                  "measure": {
+                    "S": "KM"
+                  },
+                  "distance": {
+                    "N": "1.5"
+                  },
+                  "location_id": {
+                    "S": "6"
+                  }
+                }
+              },
+              "attractions": {
+                "L": [
+                  {
+                    "M": {
+                      "measure": {
+                        "S": "KM"
+                      },
+                      "distance": {
+                        "N": "1.5"
+                      },
+                      "location_id": {
+                        "S": "9"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "measure": {
+                        "S": "KM"
+                      },
+                      "distance": {
+                        "N": "1.5"
+                      },
+                      "location_id": {
+                        "S": "10"
+                      }
+                    }
+                  }
+                ]
+              },
+              "airports": {
+                "L": [
+                  {
+                    "M": {
+                      "measure": {
+                        "S": "KM"
+                      },
+                      "distance": {
+                        "N": "1.5"
+                      },
+                      "location_id": {
+                        "S": "7"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "measure": {
+                        "S": "KM"
+                      },
+                      "distance": {
+                        "N": "1.5"
+                      },
+                      "location_id": {
+                        "S": "8"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "attraction_id": {
+            "S": "2"
+          },
+          "name": {
+            "S": "Holiday Acasa"
+          },
+          "files": {
+            "L": [
+              {
+                "M": {
+                  "name": {
+                    "S": "front_view.png"
+                  },
+                  "id": {
+                    "S": "1"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "name": {
+                    "S": "back_view.png"
+                  },
+                  "id": {
+                    "S": "2"
+                  }
+                }
+              }
+            ]
+          },
+          "messages": {
+            "L": [
+              {
+                "M": {
+                  "description": {
+                    "M": {
+                      "locale": {
+                        "M": {
+                          "code": {
+                            "S": "AZ"
+                          }
+                        }
+                      },
+                      "value": {
+                        "S": "Cirlik"
+                      }
+                    }
+                  },
+                  "title": {
+                    "S": "Awsome"
+                  }
+                }
+              }
+            ]
+          },
+          "location": {
+            "M": {
+              "lat": {
+                "N": "0"
+              },
+              "long": {
+                "N": "0"
+              }
+            }
+          },
+          "facilities": {
+            "L": [
+              {
+                "S": "sdas"
+              },
+              {
+                "S": "asdasda"
+              }
+            ]
+          },
+          "country_id": {
+            "S": "4"
+          },
+          "city_id": {
+            "S": "3"
+          }
+        },
+        "SequenceNumber": "000000000000000000023",
+        "SizeBytes": 1725,
+        "StreamViewType": "NEW_IMAGE"
+      }
+    }
+  ]
+}

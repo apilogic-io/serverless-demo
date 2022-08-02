@@ -1,0 +1,129 @@
+service: appsync
+useDotenv: true
+
+frameworkVersion: '>=1.21.0 <2.72.6'
+
+provider:
+  name: aws
+  region: 'us-fake-1'
+  runtime: 'nodejs14.x'
+  stage: dev
+  environment:
+    DATA_API_DATABASE_NAME: migrations
+    ESARN: esarn
+    ESHOST: 'http://localhost:9200'
+    ESPORT: 9200
+    ESUSER: admin
+    ESPASS: admin
+
+plugins:
+  - serverless-dotenv-plugin
+  - '@apilogic/serverless-offline-builder'
+  - serverless-dynamodb-local
+  - serverless-appsync-plugin
+  - '@apilogic/serverless-appsync-java-simulator'
+  - '@apilogic/migration-tool-serverless'
+  - serverless-step-functions
+  - serverless-step-functions-offline
+  - serverless-plugin-offline-dynamodb-stream
+  - serverless-offline
+
+package:
+  individually: true
+functions:
+  - ${file(offline/functions.yml)}
+  - ${file(${self:custom.apilogic.lambdaFunctions.dynamodb-streams}/functions.yml)}
+#  - ${file(${self:custom.apilogic.lambdaFunctions.custom-ts-lambdas}/functions.yml)}
+  - ${file(${self:custom.apilogic.lambdaFunctions.step-functions}/functions.yml)}
+  - ${file(${self:custom.apilogic.lambdaFunctions.jolt-transform}/functions.yml)}
+stepFunctions: ${file(../step-functions/step-functions.yml)}
+custom:
+  accountID: fake
+  apilogic:
+    apiMappings: api/mapping-templates
+    apiFunctions: api/functions
+    customResolversMappings: custom-resolvers/mapping-templates
+    customResolversFunctions: custom-resolvers/functions
+    commonMappings: common-mappings
+    lambdaFunctions:
+      dynamodb-streams: ../dynamodb-streams
+      step-functions: ../step-functions
+#      custom-ts-lambdas: ../custom-ts-lambdas
+      jolt-transform: ../jolt-transform
+  esEndpoint: ${self:provider.environment.ESHOST}
+  dynamodb:
+    # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: false
+      convertEmptyValues: true
+      # Uncomment only if you already have a DynamoDB running locally
+      noStart: true
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    external:
+      - fsevents
+      - serverless-offline/dist/lambda/handler-runner/java-runner/JavaRunner
+  appsync-offline:
+    port: 62222
+    dynamodb:
+      client:
+        endpoint: 'http://localhost:8000'
+        region: ${self:provider.region}
+  appSync:
+    schema: ${file(schemas.yml)}
+    authenticationType: AMAZON_COGNITO_USER_POOLS # API_KEY is also supported
+    userPoolConfig:
+      awsRegion: ${self:provider.region} # required # region
+      defaultAction: ALLOW
+      userPoolId: { Ref: CognitoUserPoolUsers }
+    mappingTemplatesLocation: './'
+    defaultMappingTemplates: # default templates. Useful for Lambda templates that are often repetitive. Will be used if the template is not specified in a resolver
+      request: false # or, e.g: false for Direct lambdas
+      response: false # or e.g.: false for Direct lambdas
+    mappingTemplates: ${file(mapping-templates.yml)}
+    functionConfigurations: ${file(function-configurations.yml)}
+    dataSources: ${file(data-sources.yml)}
+  DataAPIMigrations:
+    migrationsFolder: ../elastic-migrations
+    migrationSourceClient:
+      clientType: AMAZON_DYNAMODB #only dynamo
+      config:
+        description: 'Migrations table'
+        endpoint: 'http://localhost:8000'
+        region: ${self:provider.region}
+        accessKeyId: 'fake'
+        secretAccessKey: 'fake'
+        tableName: 'Migrations'
+    migrationTargetClient:
+      clientType: AMAZON_ELASTICSEARCH
+      config:
+        endpoint: http://localhost:9200 #
+        url:
+          host: http://localhost:9200
+          port: 9200
+          username: admin
+          password: admin # "https://{DOMAIN}.{REGION}.es.amazonaws.com"
+        region: ${self:provider.region}
+        devmode: true
+  stepFunctionsOffline:
+    EntitiesJoltTransformEvent: entitiesJoltTransformEvent
+    UpsertEntity: upsertEntity
+  dynamodbStream:
+    host: localhost
+    port: 8000
+    streams:
+      - table: Posts
+        functions:
+          - upsertEntityExecution
+resources:
+  - ${file(resources/resources.yml)}
+  - ${file(../dynamodb/resources.yml)}

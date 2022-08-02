@@ -1,0 +1,34 @@
+version: '3.5'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      discovery.type: single-node
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.2
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+  dynamodb:
+    image: cnadiminti/dynamodb-local:latest
+    ports:
+      - 8000:8000
+  admin:
+    image: boogak/dynamodb-admin
+    ports:
+      - 8001:8001
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb:8000
+
+networks:
+  default:
+
+volumes:
+  esdata3:
+    driver: local

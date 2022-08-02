@@ -1,0 +1,3 @@
+#- ${file(${self:custom.apilogic.customResolversFunctions}/mapping-functions.yml)}
+- ${file(${self:custom.apilogic.apiFunctions}/common/mapping-functions.yml)}
+- ${file(${self:custom.apilogic.apiFunctions}/post/mapping-functions.yml)}

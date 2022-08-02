@@ -1,0 +1,114 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "Records": {
+        "*": {
+          "dynamodb": {
+            "NewImage": {
+              "name": {
+                "S": "name"
+              },
+              "type": {
+                "S": "type"
+              },
+              "rating": "rating",
+              "distanceFrom": {
+                "M": {
+                  "beach": {
+                    "M": {
+                      "distance": {
+                        "N": "distance_beach"
+                      }
+                    }
+                  },
+                  "cityCenter": {
+                    "M": {
+                      "distance": {
+                        "N": "distance_city_centre"
+                      }
+                    }
+                  },
+                  "airports": {
+                    "L": {
+                      "*": {
+                        "M": {
+                          "distance": {
+                            "N": "distance_airports[#4].distance"
+                          },
+                          "location_id": {
+                            "S": "distance_airports[#4].id"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "attractions": {
+                    "L": {
+                      "*": {
+                        "M": {
+                          "distance": {
+                            "N": "distance_attractions[#4].distance"
+                          },
+                          "location_id": {
+                            "S": "distance_attractions[#4].id"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "longDescription": {
+                "M": {
+                  "locale": {
+                    "M": {
+                      "description": {
+                        "S": "long_description"
+                      }
+                    }
+                  }
+                }
+              },
+              "adultsOnly": {
+                "BOOL": "adults_only"
+              },
+              "facilities": {
+                "L": {
+                  "*": {
+                    "S": "facilities[]"
+                  }
+                }
+              },
+              "active": {
+                "BOOL": "active"
+              },
+              "owner_id": {
+                "S": "owner_id"
+              },
+              "hotel_id": {
+                "S": "hotel_id"
+              },
+              "official_rating": {
+                "N": "official_rating"
+              },
+              "our_rating": {
+                "N": "our_rating"
+              },
+              "category": {
+                "S": "category"
+              },
+              "propertyType": {
+                "L": {
+                  "*": {
+                    "S": "property_type[]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

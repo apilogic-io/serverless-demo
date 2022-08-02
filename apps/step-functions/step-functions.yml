@@ -1,0 +1,15 @@
+stateMachines:
+  upsertEntityExecution:
+    name: UpsertEntityExecution
+    definition:
+      Comment: "An example of the Amazon States Language using wait states"
+      StartAt: EntitiesJoltTransformEvent
+      States:
+        EntitiesJoltTransformEvent:
+          Type: Task
+          Resource: "arn:aws:lambda:${self:provider.region}:${self:custom.accountID}:function:jolt-transform-${self:provider.stage}-entitiesJoltTransformEvent"
+          Next: UpsertEntity
+        UpsertEntity:
+          Type: Task
+          Resource: "arn:aws:lambda:${self:provider.region}:${self:custom.accountID}:function:${self:service}-${self:provider.stage}-upsertEntity"
+          End: true

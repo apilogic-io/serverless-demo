@@ -1,0 +1,22 @@
+{
+  "id": {
+    "type": "keyword"
+  },
+  "title": {
+    "type": "text",
+    "index_options": "offsets",
+    "term_vector": "with_positions_offsets"
+  },
+  "content": {
+    "type": "text",
+    "index_options": "offsets",
+    "term_vector": "with_positions_offsets"
+  },
+  "status": {
+    "type": "keyword",
+    "index": false
+  },
+  "author": {
+    "type": "keyword"
+  }
+}

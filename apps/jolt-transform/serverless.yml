@@ -1,0 +1,25 @@
+service: jolt-transform
+useDotenv: true
+
+frameworkVersion: ">=1.21.0 <2.72.6"
+
+provider:
+  name: aws
+  region: eu-central-1
+  runtime: java8
+  stage: ${sls:stage}
+  logRetentionInDays: 30
+plugins:
+  - serverless-prune-plugin
+package:
+  individually: true
+  excludeDevDependencies: false
+  artifact: 'build/distributions/jolt-transform.zip'
+  custom:
+    enable_optimize:
+    local: false
+custom:
+  prune:
+    automatic: true
+    number: 3
+functions: ${file(functions.yml)}

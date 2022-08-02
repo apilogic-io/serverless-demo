@@ -1,0 +1,32 @@
+plugins {
+  id 'java-library'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation (
+    'com.google.code.gson:gson:2.8.6',
+    'com.googlecode.json-simple:json-simple:1.1.1',
+    'com.amazonaws:aws-lambda-java-core:1.2.0',
+    'com.amazonaws:aws-lambda-java-events:2.2.7',
+  )
+}
+
+jar {
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  manifest {
+    attributes 'Main-Class': 'shim.Invoker'
+  }
+  from {
+    configurations.runtimeClasspath.collect {it.isDirectory() ? it : zipTree(it)}
+  }
+  baseName 'localinvoke'
+}
+
+tasks.withType(Jar) {
+  println("${System.properties['user.home']}${File.separator}.amplify/lib/amplify-java-function-runtime-provider/resources/localinvoke/lib/")
+  destinationDirectory = file("${System.properties['user.home']}${File.separator}.amplify/lib/amplify-java-function-runtime-provider/resources/localinvoke/lib/")
+}

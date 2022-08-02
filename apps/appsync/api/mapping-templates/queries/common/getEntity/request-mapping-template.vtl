@@ -1,0 +1,11 @@
+#set($entityId = $ctx.stash.entityId)
+{
+  "version": "2018-05-29",
+  "operation": "GetItem",
+  "key": {
+    "id": $util.dynamodb.toDynamoDBJson($entityId)
+    #if(!$util.isNull($ctx.stash.owner_id))
+      ,"owner_id": $util.dynamodb.toDynamoDBJson($ctx.stash.owner_id)
+    #end
+  }
+}

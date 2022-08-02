@@ -1,0 +1,6 @@
+- type: AMAZON_ELASTICSEARCH
+  name: esInstance
+  description: 'Elastic search'
+  config:
+    endpoint: ${self:custom.esEndpoint}
+    serviceRoleArn: { Fn::GetAtt: [AppSyncESServiceRole, Arn] }

@@ -1,0 +1,37 @@
+- type: AMAZON_DYNAMODB
+  name: Posts
+  description: 'Posts table'
+  config:
+    tableName: 'Posts'
+    iamRoleStatements: # custom IAM Role statements for this DataSource. Ignored if `serviceRoleArn` is present. Auto-generated if both `serviceRoleArn` and `iamRoleStatements` are omitted
+      - Effect: 'Allow'
+        Action:
+          - 'dynamodb:Query'
+          - 'dynamodb:GetItem'
+          - 'dynamodb:UpdateItem'
+          - 'dynamodb:PutItem'
+          - 'dynamodb:DeleteItem'
+        Resource:
+          - 'arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Posts'
+          - 'arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Posts/*'
+      - Effect: 'Allow'
+        Action:
+          - 'dynamodb:Query'
+          - 'dynamodb:GetItem'
+          - 'dynamodb:Scan'
+        Resource: "arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Posts/index/*"
+- type: AMAZON_DYNAMODB
+  name: Migrations
+  description: 'Migrations table'
+  config:
+    tableName: 'Migrations'
+    iamRoleStatements:
+      - Effect: 'Allow'
+        Action:
+          - 'dynamodb:Query'
+          - 'dynamodb:UpdateItem'
+          - 'dynamodb:PutItem'
+          - 'dynamodb:DeleteItem'
+        Resource:
+          - 'arn:aws:dynamodb:${self:provider.region}:*:table/Migrations'
+          - 'arn:aws:dynamodb:${self:provider.region}:*:table/Migrations/*'

@@ -1,0 +1,4 @@
+- ${file(api/datasources/dynamo.yml)}
+- ${file(api/datasources/es.yml)}
+- ${file(api/datasources/lambda.yml)}
+- ${file(api/datasources/local.yml)}

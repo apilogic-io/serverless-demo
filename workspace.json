@@ -1,5 +1,11 @@
 {
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
-  "projects": {}
+  "projects": {
+    "appsync": "apps/appsync",
+    "dynamodb": "apps/dynamodb",
+    "dynamodb-streams": "apps/dynamodb-streams",
+    "elastic-migrations": "apps/elastic-migrations",
+    "step-functions": "apps/step-functions"
+  }
 }

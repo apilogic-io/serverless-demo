@@ -1,0 +1,1 @@
+- ${file(${self:custom.apilogic.apiFunctions}/post/mappings.yml)}

@@ -1,0 +1,5 @@
+#if ($ctx.error)
+  $util.appendError($ctx.error.message, $ctx.error.type, "null", $ctx.result.cancellationReasons)
+  $util.qr($ctx.stash.put("errors", "true"))
+#end
+{}

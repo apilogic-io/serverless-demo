@@ -1,0 +1,14 @@
+entitiesJoltTransformEvent:
+  handler: com.eturia.jolt.transform.EntitiesJoltTransformHandler
+  runtime: java8
+  environment:
+    #offline-processing
+    offlineExecutionHandler: src/java-runner.handler
+    servicePackage: .offline/java/jolt-transform.jar
+elasticDataMappingJoltTransform:
+  handler: com.eturia.jolt.transform.ElasticDataMappingJoltTransformHandler::transform
+  runtime: java8
+  environment:
+    #offline-processing
+#    offlineExecutionHandler: src/java-runner.handler
+    servicePackage: .offline/java/jolt-transform.jar

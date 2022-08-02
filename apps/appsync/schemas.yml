@@ -1,0 +1,5 @@
+- schema.graphql
+- api/schemas/common/commonTypes.graphql
+- api/schemas/post/postTypes.graphql
+- api/schemas/post/postInputs.graphql
+- api/schemas/post/postEnums.graphql

@@ -1,0 +1,16 @@
+service: dynamodb
+useDotenv: true
+
+frameworkVersion: ">=1.21.0 <2.72.6"
+
+provider:
+  name: aws
+  region: eu-central-1
+  runtime: 'nodejs14.x'
+  stage: ${sls:stage}
+  logRetentionInDays: 30
+package:
+  individually: true
+  excludeDevDependencies: false
+resources:
+  ${file(resources.yml)}

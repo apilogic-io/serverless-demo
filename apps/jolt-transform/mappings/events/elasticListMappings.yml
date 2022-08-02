@@ -1,0 +1,3 @@
+events:
+  - joltName: postListJolt
+    tableName: posts

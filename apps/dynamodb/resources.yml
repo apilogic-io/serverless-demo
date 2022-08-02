@@ -1,0 +1,29 @@
+Resources:
+  Posts:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName: "Posts"
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+  Migrations:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        TableName: "Migrations"
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10

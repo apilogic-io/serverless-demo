@@ -1,0 +1,53 @@
+mutation sasa {
+  updateHotelPipeline(
+  hotel: {
+    name: "Holiday Acasa",
+    official_rating: 10,
+    our_rating: 3,
+    location: {lat: 0.000, long: 0.000},
+    type: HOTEL,
+    city_id: "3",
+    country_id: "4",
+    facilities: ["sdas", "asdasda"],
+    airport_id: "1",
+    attraction_id: "2",
+    distanceFrom: {
+      beach: {location_id: "5", distance: 1.5, measure: KM},
+      cityCenter: {location_id: "6", distance: 1.5, measure: KM},
+      airports: [{location_id: "7", distance: 1.5, measure: KM},
+        {location_id: "8", distance: 1.5, measure: KM}],
+      attractions: [{location_id: "9", distance: 1.5, measure: KM},
+        {location_id: "10", distance: 1.5, measure: KM}]},
+    address: "Straseni. Aron Pumnu",
+    adultsOnly: false,
+    ageConfig: {adult: 18, child: 5, infant: 3},
+    customFields: [{label: "label1", value: "value1"},
+      {label: "label2", value: "value2"}],
+    restrictions: [{name: "Restriction1", type: "covid", rooms: ["A", "B", "C"],
+      validOn: [sdfs], mustInclude: [sdfs],
+      country: ["1", "2"], minStay: {apply: true, nights: 3},
+      maxStay: {apply: true, nights: 15}}], files: [{id: "1", name: "front_view.png"},
+      {id: "2", name: "back_view.png"}],
+    shortDescription: {locale: {code: "RO", default: false}},
+    longDescription: {locale: {code: "RO", default: false}},
+    messages: [{title: "Awsome", description: {locale: {code: "AZ"}, value: "Cirlik"}}],
+    internalNotes: "asasdadsas", seo: {title: "Rest", metaDescription: "More rest"},
+    active: true,
+    chain: HILTON,
+    propertyType: [BUSINESS_HOTEL],
+    rooms: [{standardName: "For2", type: "double", order: 1, description: "good room",
+      amenities:[
+        {name: "amenity1", type: FACILITY, amenityCategory: BEDROOM, popular:true},
+        {name: "amenity2", type: AMENITY, amenityCategory: BATHROOM, popular:true}],
+      active:true, internal:true, external: false},
+      {standardName: "ForAll", type: "appartment", order: 1, description: "good app",
+        amenities:[
+          {name: "amenity1", type: FACILITY, amenityCategory: BEDROOM, popular:true},
+          {name: "amenity2", type: AMENITY, amenityCategory: BATHROOM, popular:true}],
+        active:true, internal:true, external: false}
+    ]
+  }
+  ) {
+  hotel_id
+}
+}

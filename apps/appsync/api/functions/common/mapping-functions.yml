@@ -1,0 +1,4 @@
+- name: modifyEntities
+  dataSource: Posts # This is a placeholder dataSource to ensure compliance with appsync serverless plugin
+  request: ${self:custom.apilogic.apiMappings}/mutations/common/modifyEntities/request-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/mutations/common/modifyEntities/response-mapping-template.vtl

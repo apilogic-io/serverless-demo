@@ -1,0 +1,5 @@
+#if($util.toJson($ctx.stash.entity).equals("null"))
+  $util.error("404 Not Found")
+#else
+  $util.toJson($ctx.stash.entity)
+#end

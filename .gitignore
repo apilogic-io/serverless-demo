@@ -4,9 +4,18 @@
 /dist
 /tmp
 /out-tsc
+/apps/appsync/.offline
+**/build
+**/.gradle
+**/.webpack
+**/.serverless
+/apps/dynamodb/.dynamodb
+/apps/elastic-migrations/.migrations_build
+/apps/elastic-migrations/.serverless_plugins
+**/.esbuild/
 
 # dependencies
-node_modules
+**/node_modules
 
 # IDEs and editors
 /.idea
@@ -37,3 +46,18 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/**/*.iml
+
+# Framework caches
+/.serverless
+/.angular
+
+# Tests
+/apps/appsync/api/tests/
+
+# App logs and configs
+**/pid
+**/server.log
+**/.env
+
+.angular

@@ -1,0 +1,37 @@
+service: step-functions
+useDotenv: true
+
+frameworkVersion: ">=1.21.0 <2.72.6"
+
+provider:
+  name: aws
+  region: eu-central-1
+  runtime: 'nodejs14.x'
+  stage: ${sls:stage}
+  logRetentionInDays: 30
+  environment:
+    DATA_API_DATABASE_NAME: migrations
+    ESHOST: ${ssm:/${env:AWS_ENV}/opensearch/ESHOST}
+    ESPORT: ${ssm:/${env:AWS_ENV}/opensearch/ESPORT}
+    ESUSER: ${ssm:/${env:AWS_ENV}/opensearch/ESUSER~true}
+    ESPASS: ${ssm:/${env:AWS_ENV}/opensearch/ESPASS~true}
+
+plugins:
+  - serverless-esbuild
+  - serverless-step-functions
+  - serverless-prune-plugin
+package:
+  individually: true
+custom:
+  accountID: ${ssm:/${env:AWS_ENV}/CURRENT_ACCOUNT_ID}
+  esbuild:
+    packagePath: ../../package.json
+  buckets:
+    cacheBucket: ${ssm:/${env:AWS_ENV}/buckets/ENTITY_CACHES}
+  prune:
+    automatic: true
+    number: 3
+functions:
+  ${file(functions.yml)}
+stepFunctions:
+  ${file(step-functions.yml)}

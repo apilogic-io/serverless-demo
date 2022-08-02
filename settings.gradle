@@ -1,0 +1,4 @@
+rootProject.name = 'serverless-demo'
+include 'apps:jolt-transform'
+include 'libs:shim'
+include 'libs:common'

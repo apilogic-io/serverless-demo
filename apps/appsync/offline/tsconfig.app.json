@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"]
+  },
+  "exclude": ["**/*.spec.ts", "../../dynamodb-streams/**/*.spec.ts", "../../step-functions/**/*.spec.ts"],
+  "include": ["**/*.ts", "../../dynamodb-streams/**/*.ts", "../../step-functions/**/*.ts"]
+}

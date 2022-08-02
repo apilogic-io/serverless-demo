@@ -1,0 +1,23 @@
+- type: Mutation
+  dataSource: Posts
+  field: createPostPipeline
+  kind: PIPELINE
+  request: ${self:custom.apilogic.apiMappings}/mutations/postPipeline/before-create-pipeline-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/mutations/common/after-pipeline-mapping-template.vtl
+  functions:
+    - modifyEntities
+- type: Mutation
+  dataSource: Posts
+  field: patchPostPipeline
+  kind: PIPELINE
+  request: ${self:custom.apilogic.apiMappings}/mutations/postPipeline/before-patch-pipeline-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/mutations/common/after-pipeline-mapping-template.vtl
+  functions:
+    - modifyEntities
+- type: Query
+  kind: PIPELINE
+  field: getPostById
+  request: ${self:custom.apilogic.apiMappings}/queries/getPostByIdPipeline/before-pipeline-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/queries/common/after-pipeline-mapping-template.vtl
+  functions:
+    - getPost

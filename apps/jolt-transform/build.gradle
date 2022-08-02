@@ -1,0 +1,50 @@
+plugins {
+  id 'java'
+}
+
+repositories {
+  mavenCentral()
+}
+
+configurations {
+  jaxws
+  extraLibs
+}
+
+dependencies {
+  implementation project(':libs:common'),
+    'com.amazonaws:aws-lambda-java-core:1.2.1',
+    'com.amazonaws:aws-lambda-java-log4j:1.0.1'
+  extraLibs project(':libs:common')
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0',
+    'org.mockito:mockito-core:3.8.0',
+    'org.mockito:mockito-junit-jupiter:3.8.0',
+    'org.assertj:assertj-core:3.18.0'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+jar {
+  from {
+    configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}
+
+sourceSets {
+  main {
+    resources {
+      srcDirs "mappings"
+    }
+  }
+}
+
+test {
+  useJUnitPlatform()
+}
+
+task buildZip(type: Zip) {
+  from compileJava
+  from processResources
+  into('lib') {
+    from configurations.runtimeClasspath
+  }
+}

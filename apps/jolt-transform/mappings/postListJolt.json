@@ -1,0 +1,21 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "source_id": "sourceId",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+      "start_date": "startDate",
+      "end_date": "endDate",
+      "country": {
+        "iso_2": "country.iso2",
+        "*": "&(1).&"
+      },
+      "hotel": {
+        "source_id": "hotel.sourceId",
+        "*": "&(1).&"
+      },
+      "*": "&"
+    }
+  }
+]

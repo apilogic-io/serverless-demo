@@ -1,0 +1,10 @@
+type Post {
+  title: String!
+  status: PostStatuses
+  content: String
+  author: Author
+}
+
+type Author {
+  username: String
+}

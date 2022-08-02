@@ -1,0 +1,54 @@
+{
+  "eventID": "8c0a0f86-d27b-4d92-8d6d-21bb500559f5",
+  "eventName": "MODIFY",
+  "eventVersion": "1.1",
+  "eventSource": "aws:dynamodb",
+  "awsRegion": "ddblocal",
+  "dynamodb": {
+    "ApproximateCreationDateTime": "2022-03-15T08:01:00.000Z",
+    "Keys": {
+      "id": {
+        "S": "e1a6e2d6-4e7f-449b-befa-cb6516c70f42"
+      }
+    },
+    "NewImage": {
+      "registrationNumber": {
+        "S": "reg11as"
+      },
+      "taxId": {
+        "S": "tax122xd"
+      },
+      "name": {
+        "S": "aaaaaaa1112aa2"
+      },
+      "id": {
+        "S": "e1a6e2d6-4e7f-449b-befa-cb6516c70f42"
+      },
+      "users": {
+        "L": [
+          {
+            "M": {
+              "groups": {
+                "L": [
+                  {
+                    "S": "ACCOUNT_MANAGERS"
+                  }
+                ]
+              },
+              "email": {
+                "S": "aaadd@email.com"
+              }
+            }
+          }
+        ]
+      },
+      "status": {
+        "S": "PENDING_APPROVAL"
+      }
+    },
+    "SequenceNumber": "000000000000000000013",
+    "SizeBytes": 214,
+    "StreamViewType": "NEW_IMAGE"
+  },
+  "eventSourceARN": "arn:aws:dynamodb:ddblocal:000000000000:table/Accounts/stream/2022-03-15T06:22:09.208"
+}

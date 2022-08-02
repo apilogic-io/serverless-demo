@@ -1,0 +1,26 @@
+Resources:
+  AppSyncESServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ElasticSearchAppsyncServiceRole-${self:provider.stage}
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - appsync.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: ElasticSearchAppsyncServiceRolePolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              # Public can query for information
+              - Effect: Allow
+                Action:
+                  - "es:ESHttpGet"
+                  - "es:ESHttpDelete"
+                  - "es:ESHttpHead"
+                  - "es:ESHttpPost"
+                  - "es:ESHttpPut"
+                Resource: ${self:provider.environment.ESARN}/*

@@ -1,0 +1,33 @@
+##  Prepare list of operations for transaction
+##
+##  [
+##    {
+##      "id": "$ctx.data.post.id",
+##      "tableName": "Post",
+##      "action": "UpdateItem",
+##      "entity": "$ctx.data.post // contains id from above"
+##    },
+##    {
+##      "id": "$util.autoId()",
+##      "tableName": "Comment",
+##      "action": "PutItem",
+##      "entity": "$ctx.data.comment"
+##    }
+##  ]
+
+## Init payload model
+#set($payload = [])
+#set($postPutItemOperation={})
+
+## Prepare operation
+#set($postId=$util.autoId())
+$util.qr($postPutItemOperation.put("id", $postId))
+$util.qr($postPutItemOperation.put("tableName", "Posts"))
+$util.qr($postPutItemOperation.put("action", "PutItem"))
+$util.qr($postPutItemOperation.put("entity", $ctx.args.data))
+
+## Push operation into operations list
+$util.qr($payload.add($postPutItemOperation))
+$util.qr($ctx.stash.put("payload", $payload))
+$util.qr($ctx.stash.put("id", $postId))
+{}

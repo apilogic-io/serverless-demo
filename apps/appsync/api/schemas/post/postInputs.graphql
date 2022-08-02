@@ -1,0 +1,18 @@
+input PostInput {
+  title: String!
+  status: PostStatuses
+  content: String
+  author: AuthorInput
+}
+
+input PostPatchInput {
+  id: String!
+  title: String
+  status: PostStatuses
+  content: String
+  author: AuthorInput
+}
+
+input AuthorInput {
+  username: String
+}

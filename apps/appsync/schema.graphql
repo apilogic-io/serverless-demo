@@ -1,0 +1,13 @@
+type Query {
+  getPostById(id: String!): Post
+}
+
+type Mutation {
+  createPostPipeline(data: PostInput): UpsertOutput!
+  patchPostPipeline(data: PostPatchInput): UpsertOutput!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

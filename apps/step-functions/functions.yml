@@ -1,0 +1,9 @@
+upsertEntity:
+  handler: src/upsert-entity/handler.handler
+  environment:
+    host: ${self:provider.environment.ESHOST}
+    port: ${self:provider.environment.ESPORT}
+    username: ${self:provider.environment.ESUSER}
+    password: ${self:provider.environment.ESPASS}
+    #    used only for offline
+    selfPath: ${self:custom.apilogic.lambdaFunctions.step-functions}

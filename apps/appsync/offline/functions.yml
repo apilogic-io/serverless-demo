@@ -1,0 +1,4 @@
+javaRunner:
+  handler: src/java-runner.handler
+  environment:
+    selfPath: offline

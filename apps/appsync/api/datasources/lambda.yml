@@ -1,0 +1,6 @@
+- type: AWS_LAMBDA
+  name: elasticDataMappingJoltTransform
+  description: 'Lambda DataSource'
+  config: # Either of functionName or lambdaFunctionArn must tbe provided. When both are present, lambdaFunctionArn is used.
+    functionName: elasticDataMappingJoltTransform # this is used for offline
+    lambdaFunctionArn: "arn:aws:lambda:${self:provider.region}:${self:custom.accountID}:function:jolt-transform--${self:provider.stage}-elasticDataMappingJoltTransform"

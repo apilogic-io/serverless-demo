@@ -1,0 +1,40 @@
+subprojects {
+  apply plugin: 'java'
+
+  configurations {
+    jaxws
+    extraLibs
+  }
+
+  dependencies {
+    compile (
+      'com.amazonaws:aws-lambda-java-core:1.2.1',
+      'com.amazonaws:aws-lambda-java-log4j:1.0.1',
+      'com.amazonaws:aws-lambda-java-events:3.8.0',
+      'com.google.dagger:dagger:2.5',
+      'javax.xml.soap:javax.xml.soap-api:1.4.0',
+      'com.fasterxml.jackson.core:jackson-core:2.12.2',
+      'com.fasterxml.jackson.core:jackson-databind:2.12.2',
+      'com.fasterxml.jackson.core:jackson-annotations:2.12.2',
+      'javax.annotation:javax.annotation-api:1.3.2',
+      'org.yaml:snakeyaml:1.28',
+      'com.bazaarvoice.jolt:jolt-core:0.1.5',
+      'com.google.code.gson:gson:2.8.6',
+      'com.googlecode.json-simple:json-simple:1.1.1',
+      'org.yaml:snakeyaml:1.28',
+      'one.util:streamex:0.7.3'
+    )
+    compileOnly "org.projectlombok:lombok:1.18.20"
+    // https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
+    annotationProcessor ("com.google.dagger:dagger-compiler:2.5",
+      "org.projectlombok:lombok:1.18.20")
+  }
+  repositories {
+    mavenCentral()
+  }
+
+  tasks.withType(Jar) {
+    System.out.println("___________$rootDir")
+    destinationDirectory = file("$rootDir/apps/appsync/.offline/java")
+  }
+}
