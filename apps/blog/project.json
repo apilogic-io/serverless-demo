@@ -14,7 +14,10 @@
         "tsConfig": "apps/blog/tsconfig.app.json",
         "inlineStyleLanguage": "less",
         "assets": ["apps/blog/src/favicon.ico", "apps/blog/src/assets"],
-        "styles": ["apps/blog/src/styles.less"],
+        "styles": [
+          "node_modules/ng-zorro-antd/ng-zorro-antd.less",
+          "apps/blog/src/styles/styles.less"
+        ],
         "scripts": []
       },
       "configurations": {

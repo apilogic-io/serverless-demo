@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'serverless-demo-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less'],
+  selector: 'demo-root',
+  template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
   title = 'blog';

@@ -1,0 +1,32 @@
+<nz-layout>
+  <nz-sider
+    nzCollapsible
+    (nzCollapsedChange)="toggleMenu()"
+    [nzCollapsed]="isCollapsed"
+    [nzCollapsedWidth]="90"
+  >
+    <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
+      <li
+        nz-menu-item
+        routerLinkActive="ant-menu-item-selected"
+        routerLink="/"
+        nz-tooltip
+        nzTooltipTitle="Home"
+        [nzTooltipMouseEnterDelay]="0.5"
+        nzTooltipPlacement="right"
+      >
+        <a routerLink="/">
+          <i nz-icon nzType="home" nzTheme="outline"></i>
+          <span>Home</span>
+        </a>
+      </li>
+
+    </ul>
+  </nz-sider>
+
+  <nz-layout class="right-layout">
+    <nz-content class="right-content">
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

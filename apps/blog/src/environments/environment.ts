@@ -1,16 +1,5 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
+  appsyncUrl: 'http://192.168.0.100:20002/graphql',
+  appsyncApiKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZDhjYTUyOC00OTMxLTQyNTQtOTI3My1lYTVlZTg1M2YyNzEiLCJjb2duaXRvOmdyb3VwcyI6W10sImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhbGdvcml0aG0iOiJIUzI1NiIsImlzcyI6Imh0dHBzOi8vY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vdXMtZWFzdC0xX2Zha2VfaWRwIiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjp0cnVlLCJjb2duaXRvOnVzZXJuYW1lIjoiIiwiY29nbml0bzpyb2xlcyI6W10sImF1ZCI6IjJoaWZhMDk2YjNhMjRtdm0zcGhza3VhcWkzIiwiZXZlbnRfaWQiOiIxOGY0MDY3ZS05OTg1LTRlYWUtOWYzMy1mNDVmNDk1NDcwZDAiLCJ0b2tlbl91c2UiOiJpZCIsInBob25lX251bWJlciI6IisxMjA2MjA2MjAxNiIsImV4cCI6MTY1OTQ1MDQwMDUsImVtYWlsIjoiIiwiYXV0aF90aW1lIjoxNjU4OTkxNzcxLCJpYXQiOjE2NTg5OTE3NzF9.w6Mk9DIIRpWTJ6nrkDbwEGg-dZbWNi5SYQj_dRt3zY0'
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
