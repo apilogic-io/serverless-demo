@@ -78,6 +78,8 @@ custom:
       client:
         endpoint: 'http://localhost:8000'
         region: ${self:provider.region}
+  appsync-simulator:
+    apiKey: da2-fakeApiId123456
   appSync:
     schema: ${file(schemas.yml)}
     authenticationType: AMAZON_COGNITO_USER_POOLS # API_KEY is also supported
@@ -85,6 +87,8 @@ custom:
       awsRegion: ${self:provider.region} # required # region
       defaultAction: ALLOW
       userPoolId: { Ref: CognitoUserPoolUsers }
+    additionalAuthenticationProviders:
+      - authenticationType: API_KEY
     mappingTemplatesLocation: './'
     defaultMappingTemplates: # default templates. Useful for Lambda templates that are often repetitive. Will be used if the template is not specified in a resolver
       request: false # or, e.g: false for Direct lambdas

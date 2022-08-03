@@ -1,4 +1,5 @@
 input PostInput {
+  id: String
   title: String!
   status: PostStatuses
   content: String

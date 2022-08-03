@@ -1,0 +1,10 @@
+<nz-select [formControl]="control"
+           [nzPlaceHolder]="placeholder"
+           [nzAllowClear]="allowClear"
+           [nzDisabled]="disabled">
+  <nz-option *ngFor="let object of enum | thxEnumToObject"
+             [nzLabel]="object.label"
+             [nzValue]="object.value">
+  </nz-option>
+
+</nz-select>

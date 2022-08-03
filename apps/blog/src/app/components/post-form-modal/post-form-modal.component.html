@@ -1,0 +1,62 @@
+<nz-modal
+  [nzVisible]="isVisible"
+  [nzTitle]="modalTitleTemplate"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="close()"
+>
+  <ng-template #modalTitleTemplate>
+    Post Form
+  </ng-template>
+  <ng-template #modalContent>
+    <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <nz-alert *ngIf="errorMessage" nzType="error" [nzMessage]="errorMessage"></nz-alert>
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" [nzLg]="6" [nzMd]="6">Title</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24" [nzLg]="18" [nzMd]="18">
+          <input nz-input formControlName="title" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" [nzLg]="6" [nzMd]="6">Prenume</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24" [nzLg]="18" [nzMd]="18">
+          <nz-select
+            formControlName="author"
+            nzPlaceHolder="Select author">
+            <nz-option
+              *ngFor="let author of authors"
+              [nzLabel]="author?.username || 'test'"
+              [nzValue]="author"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" [nzLg]="6" [nzMd]="6">Status</nz-form-label>
+        <nz-form-control
+          [nzValidateStatus]="form.get('status')!"
+          [nzSm]="24"
+          [nzXs]="24"
+          [nzLg]="18"
+          [nzMd]="18"
+        >
+          <blog-enum-select
+            [control]="toFormControl(form.get('status')!)"
+            [enum]="postStatuses"
+            placeholder="Select status"
+          >
+          </blog-enum-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="24" [nzXs]="24" [nzLg]="6" [nzMd]="6">Content</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24" [nzLg]="18" [nzMd]="18">
+          <textarea rows="4" nz-input formControlName="content"> </textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button nzType="primary" [nzLoading]="loading" (click)="onSubmit()">Save</button>
+  </ng-template>
+</nz-modal>

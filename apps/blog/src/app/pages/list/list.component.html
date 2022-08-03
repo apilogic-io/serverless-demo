@@ -10,3 +10,5 @@
     </nz-list-item-meta>
   </nz-list-item>
 </nz-list>
+<button nz-button nzType="primary" nzSize="large" (click)='openModal()'>Create Post</button>
+<post-form-modal [showModal$]='showModal$' (savedPost)="savedPost($event)"></post-form-modal>
