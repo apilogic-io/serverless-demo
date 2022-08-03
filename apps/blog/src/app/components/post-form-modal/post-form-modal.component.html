@@ -18,14 +18,14 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="24" [nzXs]="24" [nzLg]="6" [nzMd]="6">Prenume</nz-form-label>
+        <nz-form-label [nzSm]="24" [nzXs]="24" [nzLg]="6" [nzMd]="6">Author</nz-form-label>
         <nz-form-control [nzSm]="24" [nzXs]="24" [nzLg]="18" [nzMd]="18">
           <nz-select
             formControlName="author"
             nzPlaceHolder="Select author">
             <nz-option
               *ngFor="let author of authors"
-              [nzLabel]="author?.username || 'test'"
+              [nzLabel]="author?.username || null"
               [nzValue]="author"
             ></nz-option>
           </nz-select>

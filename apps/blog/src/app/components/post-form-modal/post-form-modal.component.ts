@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { concatMap, of, Subject, tap } from 'rxjs';
 import { authors } from '../../consts/authors.const';
 import { PostStatuses } from '../../enums/post-statuses.enum';
 import { IPostList } from '../../interfaces/post-list.interface';
-import { IAuthor } from '../../interfaces/post.interface';
+import { IAuthor, IPost } from '../../interfaces/post.interface';
+import { IServerResponse } from '../../interfaces/server-response.interface';
 import { PostService } from '../../services/post/post.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { PostService } from '../../services/post/post.service';
 })
 export class PostFormModalComponent implements OnInit {
   @Input() showModal$: Subject<boolean> = new Subject();
-  @Input() postInput?: IPostList;
+  @Input() postInput$!: Subject<IPostList>;
 
   @Output() savedPost: EventEmitter<string> = new EventEmitter<string>();
 
@@ -32,6 +33,31 @@ export class PostFormModalComponent implements OnInit {
     this.showModal$.subscribe((value) => {
       this.isVisible = value;
     });
+    this.loadPost();
+  }
+
+  private loadPost() {
+    this.postInput$
+      .pipe(
+        concatMap((post: IPostList) => {
+          if (post.id) {
+            return this._service.getPostById(post.id);
+          }
+          return of({ error: 'Post has no ID' } as IServerResponse);
+        }),
+        tap((result) => {
+          if (result.data) {
+            const post = result.data as IPost;
+            this.form.get('id')?.setValue(post.id);
+            this.form.get('title')?.setValue(post.title);
+            this.form.get('content')?.setValue(post.content);
+            this.form.get('status')?.setValue(post.status);
+            this.form.get('author')?.setValue(this.authors.find((author) => post.author?.username === author.username));
+            // this.form.get('author')?.setValue(post.author?.username);
+          }
+        })
+      )
+      .subscribe();
   }
 
   public onSubmit(): void {
@@ -52,7 +78,6 @@ export class PostFormModalComponent implements OnInit {
   public close(): void {
     this.form.reset();
     this.isVisible = false;
-    this.postInput = undefined;
   }
 
   public toFormControl(control: string | AbstractControl): FormControl {
@@ -69,9 +94,7 @@ export class PostFormModalComponent implements OnInit {
       title: null,
       content: null,
       status: PostStatuses.DRAFT,
-      author: this._fb.group({
-        username: null,
-      }),
+      author: null,
     });
   }
 }

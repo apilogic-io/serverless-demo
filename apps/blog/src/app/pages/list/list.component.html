@@ -1,14 +1,19 @@
 <nz-list nzItemLayout="horizontal">
-  <nz-list-item *ngFor="let item of posts$ | async">
+  <nz-list-item *ngFor="let post of posts$ | async">
     <nz-list-item-meta>
       <nz-list-item-meta-title>
-        <a href="https://ng.ant.design">{{ item.title }} by {{ item.author }}</a>
+        <a href="https://ng.ant.design">{{ post.title }} by {{ post.author }}</a>
       </nz-list-item-meta-title>
       <nz-list-item-meta-description>
-        {{ item.content }}
+        {{ post.content }}
       </nz-list-item-meta-description>
     </nz-list-item-meta>
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <a (click)="modifyPost(post)">Modify</a>
+      </nz-list-item-action>
+    </ul>
   </nz-list-item>
 </nz-list>
 <button nz-button nzType="primary" nzSize="large" (click)='openModal()'>Create Post</button>
-<post-form-modal [showModal$]='showModal$' (savedPost)="savedPost($event)"></post-form-modal>
+<post-form-modal [showModal$]='showModal$' [postInput$]='postToModify$' (savedPost)="savedPost($event)"></post-form-modal>

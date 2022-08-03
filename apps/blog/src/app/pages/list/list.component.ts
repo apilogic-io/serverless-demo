@@ -12,6 +12,7 @@ export class ListComponent implements OnInit {
   public posts$: BehaviorSubject<IPostList[]> = new BehaviorSubject<IPostList[]>([]);
   public errorMessage?: string;
   public showModal$: Subject<boolean> = new Subject();
+  public postToModify$: Subject<IPostList> = new Subject();
 
   constructor(private _postsService: PostService) {}
 
@@ -27,6 +28,11 @@ export class ListComponent implements OnInit {
     setTimeout(() => {
       this._fetchPosts();
     }, 1000);
+  }
+
+  public modifyPost(post: IPostList): void {
+    this.showModal$.next(true);
+    this.postToModify$.next(post);
   }
 
   private _fetchPosts(): void {

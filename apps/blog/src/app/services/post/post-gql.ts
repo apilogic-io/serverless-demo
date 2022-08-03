@@ -9,8 +9,8 @@ export const CREATE_POST = gql`
 `;
 
 export const GET_POST_BY_ID = gql`
-  query getPostById($postId: String!) {
-    getPostById(id: $postId) {
+  query getPostById($id: String!) {
+    getPostById(id: $id) {
       id
       title
       status
