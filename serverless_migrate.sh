@@ -17,8 +17,8 @@ cp libs/patches/$amplifyNodejsSimulator/invoke_debug.js node_modules/$amplifyNod
 
 pushd apps/appsync
 
-#echo -n $'Applying dynamoDB migrations\n'
-#node --inspect ../../node_modules/.bin/serverless --config serverless-offline.yml dynamodb start
+echo -n $'Applying dynamoDB migrations\n'
+node --inspect ../../node_modules/.bin/serverless --config serverless-offline.yml dynamodb start
 
 echo -n $'Applying elastic migrations\n'
 ../../node_modules/.bin/serverless migrations apply --lambdaPort=3008 --config serverless-offline.yml

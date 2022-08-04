@@ -1,0 +1,29 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "#comments": "indexName",
+      "eventName": "action",
+      "dynamodb": {
+        "NewImage": {
+          "id": {
+            "S": ["id", "data.id"]
+          },
+          "body": {
+            "S": "data.body"
+          },
+          "author": {
+            "M": {
+              "username": {
+                "S": "data.author.username"
+              }
+            }
+          },
+          "postId": {
+            "S": "data.postId"
+          }
+        }
+      }
+    }
+  }
+]

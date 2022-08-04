@@ -1,1 +1,2 @@
 - ${file(${self:custom.apilogic.apiFunctions}/post/mappings.yml)}
+- ${file(${self:custom.apilogic.apiFunctions}/comment/mappings.yml)}

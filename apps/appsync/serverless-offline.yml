@@ -128,6 +128,9 @@ custom:
       - table: Posts
         functions:
           - upsertEntityExecution
+      - table: Comments
+        functions:
+          - upsertEntityExecution
 resources:
   - ${file(resources/resources.yml)}
   - ${file(../dynamodb/resources.yml)}

@@ -6,6 +6,7 @@ type Query {
 type Mutation {
   createPostPipeline(data: PostInput): UpsertOutput!
   patchPostPipeline(data: PostPatchInput): UpsertOutput!
+  addCommentPipeline(comment: CommentInput, postId: String): UpsertOutput!
 }
 
 schema {

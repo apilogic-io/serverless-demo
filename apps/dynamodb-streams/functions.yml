@@ -5,9 +5,12 @@ upsertEntityExecution:
         tableName: Posts
         streamType: NEW_IMAGE
         startingPosition: LATEST
+    - existingDynamoStream:
+        tableName: Comments
+        streamType: NEW_IMAGE
+        startingPosition: LATEST
   environment:
     lcpName: upsertEntityExecution
     statemachine_arn: "arn:aws:states:${self:provider.region}:${self:custom.accountID}:stateMachine:UpsertEntityExecution"
     #    used only for offline
     selfPath: ${self:custom.apilogic.lambdaFunctions.dynamodb-streams}
-    isDev: ${self:custom.isDev}

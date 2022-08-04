@@ -21,6 +21,28 @@
           - 'dynamodb:Scan'
         Resource: "arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Posts/index/*"
 - type: AMAZON_DYNAMODB
+  name: Comments
+  description: 'Comments table'
+  config:
+    tableName: 'Comments'
+    iamRoleStatements: # custom IAM Role statements for this DataSource. Ignored if `serviceRoleArn` is present. Auto-generated if both `serviceRoleArn` and `iamRoleStatements` are omitted
+      - Effect: 'Allow'
+        Action:
+          - 'dynamodb:Query'
+          - 'dynamodb:GetItem'
+          - 'dynamodb:UpdateItem'
+          - 'dynamodb:PutItem'
+          - 'dynamodb:DeleteItem'
+        Resource:
+          - 'arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Comments'
+          - 'arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Comments/*'
+      - Effect: 'Allow'
+        Action:
+          - 'dynamodb:Query'
+          - 'dynamodb:GetItem'
+          - 'dynamodb:Scan'
+        Resource: "arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Comments/index/*"
+- type: AMAZON_DYNAMODB
   name: Migrations
   description: 'Migrations table'
   config:

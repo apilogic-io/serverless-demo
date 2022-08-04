@@ -6,6 +6,11 @@ input PostInput {
   author: AuthorInput
 }
 
+input CommentInput {
+  body: String
+  author: AuthorInput
+}
+
 input PostPatchInput {
   id: String!
   title: String

@@ -1,0 +1,19 @@
+## Init payload model
+#set($payload = [])
+#set($commentPutItemOperation={})
+
+## Prepare operation
+#set($commentId=$util.autoId())
+#set($comment = $ctx.args.comment)
+#set($comment.postId = $ctx.args.postId)
+
+$util.qr($commentPutItemOperation.put("id", $commentId))
+$util.qr($commentPutItemOperation.put("tableName", "Comments"))
+$util.qr($commentPutItemOperation.put("action", "PutItem"))
+$util.qr($commentPutItemOperation.put("entity", $comment))
+
+## Push operation into operations list
+$util.qr($payload.add($commentPutItemOperation))
+$util.qr($ctx.stash.put("payload", $payload))
+$util.qr($ctx.stash.put("id", $commentId))
+{}

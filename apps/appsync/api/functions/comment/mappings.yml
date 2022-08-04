@@ -1,0 +1,8 @@
+- type: Mutation
+  dataSource: Comments
+  field: addCommentPipeline
+  kind: PIPELINE
+  request: ${self:custom.apilogic.apiMappings}/mutations/commentPipeline/before-add-pipeline-mapping-template.vtl
+  response: ${self:custom.apilogic.apiMappings}/mutations/common/after-pipeline-mapping-template.vtl
+  functions:
+    - modifyEntities

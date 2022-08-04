@@ -17,3 +17,9 @@ type PostList {
 type Author {
   username: String
 }
+
+type Comment {
+  id: String
+  body: String
+  author: String
+}

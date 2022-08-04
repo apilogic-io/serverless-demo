@@ -1,3 +1,5 @@
 events:
   - joltName: postEventJolt
     tableName: Posts
+  - joltName: commentEventJolt
+    tableName: Comments
