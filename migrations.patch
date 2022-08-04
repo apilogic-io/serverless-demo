@@ -1,0 +1,120 @@
+Index: apps/elastic-migrations/__V2__createComment.ts
+===================================================================
+diff --git a/apps/elastic-migrations/__V2__createComment.ts b/apps/elastic-migrations/__V2__createComment.ts
+new file mode 100644
+--- /dev/null	
++++ b/apps/elastic-migrations/__V2__createComment.ts	
+@@ -0,0 +1,8 @@
++exports.up = (client, workingDirectory) => {
++  return client.createIndex(
++    'comments',
++    workingDirectory,
++    '/../indices/comments/index-settings.json',
++    '/../indices/comments/v2_schema.json'
++  );
++};
+Index: apps/elastic-migrations/indices/comments/index-settings.json
+===================================================================
+diff --git a/apps/elastic-migrations/indices/comments/index-settings.json b/apps/elastic-migrations/indices/comments/index-settings.json
+new file mode 100644
+--- /dev/null	
++++ b/apps/elastic-migrations/indices/comments/index-settings.json	
+@@ -0,0 +1,4 @@
++{
++  "number_of_shards" : 3,
++  "number_of_replicas" : 1
++}
+Index: apps/elastic-migrations/indices/comments/v2_schema.json
+===================================================================
+diff --git a/apps/elastic-migrations/indices/comments/v2_schema.json b/apps/elastic-migrations/indices/comments/v2_schema.json
+new file mode 100644
+--- /dev/null	
++++ b/apps/elastic-migrations/indices/comments/v2_schema.json	
+@@ -0,0 +1,20 @@
++{
++  "id": {
++    "type": "keyword"
++  },
++  "body": {
++    "type": "text",
++    "index_options": "offsets",
++    "term_vector": "with_positions_offsets"
++  },
++  "author": {
++    "properties": {
++      "username": {
++        "type": "keyword"
++      }
++    }
++  },
++  "postId": {
++    "type": "keyword"
++  }
++}
+Index: apps/dynamodb/resources.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/dynamodb/resources.yml b/apps/dynamodb/resources.yml
+--- a/apps/dynamodb/resources.yml	
++++ b/apps/dynamodb/resources.yml	
+@@ -14,6 +14,21 @@
+         WriteCapacityUnits: 10
+       StreamSpecification:
+         StreamViewType: NEW_IMAGE
++  Comments:
++    Type: "AWS::DynamoDB::Table"
++    Properties:
++      TableName: "Comments"
++      KeySchema:
++        - AttributeName: id
++          KeyType: HASH
++      AttributeDefinitions:
++        - AttributeName: id
++          AttributeType: S
++      ProvisionedThroughput:
++        ReadCapacityUnits: 10
++        WriteCapacityUnits: 10
++      StreamSpecification:
++        StreamViewType: NEW_IMAGE
+   Migrations:
+       Type: "AWS::DynamoDB::Table"
+       Properties:
+Index: apps/appsync/api/datasources/dynamo.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/api/datasources/dynamo.yml b/apps/appsync/api/datasources/dynamo.yml
+--- a/apps/appsync/api/datasources/dynamo.yml	
++++ b/apps/appsync/api/datasources/dynamo.yml	
+@@ -21,6 +21,28 @@
+           - 'dynamodb:Scan'
+         Resource: "arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Posts/index/*"
+ - type: AMAZON_DYNAMODB
++  name: Comments
++  description: 'Comments table'
++  config:
++    tableName: 'Comments'
++    iamRoleStatements: # custom IAM Role statements for this DataSource. Ignored if `serviceRoleArn` is present. Auto-generated if both `serviceRoleArn` and `iamRoleStatements` are omitted
++      - Effect: 'Allow'
++        Action:
++          - 'dynamodb:Query'
++          - 'dynamodb:GetItem'
++          - 'dynamodb:UpdateItem'
++          - 'dynamodb:PutItem'
++          - 'dynamodb:DeleteItem'
++        Resource:
++          - 'arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Comments'
++          - 'arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Comments/*'
++      - Effect: 'Allow'
++        Action:
++          - 'dynamodb:Query'
++          - 'dynamodb:GetItem'
++          - 'dynamodb:Scan'
++        Resource: "arn:aws:dynamodb:${self:provider.region}:${self:custom.accountID}:table/Comments/index/*"
++- type: AMAZON_DYNAMODB
+   name: Migrations
+   description: 'Migrations table'
+   config:

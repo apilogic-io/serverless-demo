@@ -1,0 +1,357 @@
+Index: apps/appsync/function-configurations.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/function-configurations.yml b/apps/appsync/function-configurations.yml
+--- a/apps/appsync/function-configurations.yml	
++++ b/apps/appsync/function-configurations.yml	
+@@ -1,3 +1,3 @@
+-#- ${file(${self:custom.apilogic.customResolversFunctions}/mapping-functions.yml)}
++- ${file(${self:custom.apilogic.customResolversFunctions}/mapping-functions.yml)}
+ - ${file(${self:custom.apilogic.apiFunctions}/common/mapping-functions.yml)}
+ - ${file(${self:custom.apilogic.apiFunctions}/post/mapping-functions.yml)}
+Index: apps/appsync/api/functions/comment/mappings.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/api/functions/comment/mappings.yml b/apps/appsync/api/functions/comment/mappings.yml
+--- a/apps/appsync/api/functions/comment/mappings.yml	
++++ b/apps/appsync/api/functions/comment/mappings.yml	
+@@ -5,4 +5,5 @@
+   request: ${self:custom.apilogic.apiMappings}/mutations/commentPipeline/before-add-pipeline-mapping-template.vtl
+   response: ${self:custom.apilogic.apiMappings}/mutations/common/after-pipeline-mapping-template.vtl
+   functions:
++    - enrichComment
+     - modifyEntities
+Index: apps/custom-ts-lambdas/tsconfig.spec.json
+===================================================================
+diff --git a/apps/custom-ts-lambdas/tsconfig.spec.json b/apps/custom-ts-lambdas/tsconfig.spec.json
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/tsconfig.spec.json	
+@@ -0,0 +1,9 @@
++{
++  "extends": "./tsconfig.json",
++  "compilerOptions": {
++    "outDir": "../../dist/out-tsc",
++    "module": "commonjs",
++    "types": ["jest", "node"]
++  },
++  "include": ["jest.config.ts", "**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"]
++}
+Index: apps/appsync/serverless-offline.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/serverless-offline.yml b/apps/appsync/serverless-offline.yml
+--- a/apps/appsync/serverless-offline.yml	
++++ b/apps/appsync/serverless-offline.yml	
+@@ -33,7 +33,7 @@
+ functions:
+   - ${file(offline/functions.yml)}
+   - ${file(${self:custom.apilogic.lambdaFunctions.dynamodb-streams}/functions.yml)}
+-#  - ${file(${self:custom.apilogic.lambdaFunctions.custom-ts-lambdas}/functions.yml)}
++  - ${file(${self:custom.apilogic.lambdaFunctions.custom-ts-lambdas}/functions.yml)}
+   - ${file(${self:custom.apilogic.lambdaFunctions.step-functions}/functions.yml)}
+   - ${file(${self:custom.apilogic.lambdaFunctions.jolt-transform}/functions.yml)}
+ stepFunctions: ${file(../step-functions/step-functions.yml)}
+@@ -48,7 +48,7 @@
+     lambdaFunctions:
+       dynamodb-streams: ../dynamodb-streams
+       step-functions: ../step-functions
+-#      custom-ts-lambdas: ../custom-ts-lambdas
++      custom-ts-lambdas: ../custom-ts-lambdas
+       jolt-transform: ../jolt-transform
+   esEndpoint: ${self:provider.environment.ESHOST}
+   dynamodb:
+Index: apps/custom-ts-lambdas/tsconfig.app.json
+===================================================================
+diff --git a/apps/custom-ts-lambdas/tsconfig.app.json b/apps/custom-ts-lambdas/tsconfig.app.json
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/tsconfig.app.json	
+@@ -0,0 +1,10 @@
++{
++  "extends": "./tsconfig.json",
++  "compilerOptions": {
++    "outDir": "../../dist/out-tsc",
++    "module": "commonjs",
++    "types": ["node"]
++  },
++  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
++  "include": ["**/*.ts"]
++}
+Index: apps/custom-ts-lambdas/tsconfig.json
+===================================================================
+diff --git a/apps/custom-ts-lambdas/tsconfig.json b/apps/custom-ts-lambdas/tsconfig.json
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/tsconfig.json	
+@@ -0,0 +1,13 @@
++{
++  "extends": "../../tsconfig.base.json",
++  "files": [],
++  "include": [],
++  "references": [
++    {
++      "path": "./tsconfig.app.json"
++    },
++    {
++      "path": "./tsconfig.spec.json"
++    }
++  ]
++}
+Index: apps/appsync/data-sources.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/data-sources.yml b/apps/appsync/data-sources.yml
+--- a/apps/appsync/data-sources.yml	
++++ b/apps/appsync/data-sources.yml	
+@@ -2,3 +2,4 @@
+ - ${file(api/datasources/es.yml)}
+ - ${file(api/datasources/lambda.yml)}
+ - ${file(api/datasources/local.yml)}
++- ${file(custom-resolvers/datasources/datasources.yml)}
+Index: apps/custom-ts-lambdas/project.json
+===================================================================
+diff --git a/apps/custom-ts-lambdas/project.json b/apps/custom-ts-lambdas/project.json
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/project.json	
+@@ -0,0 +1,50 @@
++{
++  "$schema": "../../node_modules/nx/schemas/project-schema.json",
++  "sourceRoot": "apps/custom-ts-lambdas/src",
++  "projectType": "application",
++  "targets": {
++    "build": {
++      "executor": "@nrwl/js:tsc",
++      "outputs": ["{options.outputPath}"],
++      "options": {
++        "outputPath": "dist/apps/custom-ts-lambdas",
++        "tsConfig": "apps/custom-ts-lambdas/tsconfig.app.json",
++        "assets": ["apps/custom-ts-lambdas/src/assets"]
++      },
++      "configurations": {
++        "production": {
++          "optimization": true,
++          "extractLicenses": true,
++          "inspect": false
++        }
++      }
++    },
++    "serve": {
++      "executor": "@nrwl/node:node",
++      "options": {
++        "buildTarget": "custom-ts-lambdas:build"
++      },
++      "configurations": {
++        "production": {
++          "buildTarget": "custom-ts-lambdas:build:production"
++        }
++      }
++    },
++    "lint": {
++      "executor": "@nrwl/linter:eslint",
++      "outputs": ["{options.outputFile}"],
++      "options": {
++        "lintFilePatterns": ["apps/custom-ts-lambdas/**/*.ts"]
++      }
++    },
++    "test": {
++      "executor": "@nrwl/jest:jest",
++      "outputs": ["coverage/apps/custom-ts-lambdas"],
++      "options": {
++        "jestConfig": "apps/custom-ts-lambdas/jest.config.ts",
++        "passWithNoTests": true
++      }
++    }
++  },
++  "tags": []
++}
+Index: apps/custom-ts-lambdas/serverless.yml
+===================================================================
+diff --git a/apps/custom-ts-lambdas/serverless.yml b/apps/custom-ts-lambdas/serverless.yml
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/serverless.yml	
+@@ -0,0 +1,36 @@
++service: dynamodb-streams
++useDotenv: true
++
++frameworkVersion: ">=1.21.0 <2.72.6"
++
++provider:
++  name: aws
++  region: eu-central-1
++  runtime: 'nodejs14.x'
++  stage: ${sls:stage}
++  logRetentionInDays: 30
++  iamRoleStatements:
++    - Effect: "Allow"
++      Action:
++        - "states:StartExecution"
++      Resource:
++        - "*"
++  environment:
++    ESHOST: ${ssm:/${env:AWS_ENV}/opensearch/ESHOST}
++    ESPORT: ${ssm:/${env:AWS_ENV}/opensearch/ESPORT}
++    ESUSER: ${ssm:/${env:AWS_ENV}/opensearch/ESUSER~true}
++    ESPASS: ${ssm:/${env:AWS_ENV}/opensearch/ESPASS~true}
++
++plugins:
++  - serverless-esbuild
++  - serverless-dynamo-stream-plugin
++
++package:
++  individually: true
++
++functions:
++  ${file(functions.yml)}
++custom:
++  accountID: ${ssm:/${env:AWS_ENV}/CURRENT_ACCOUNT_ID}
++  esbuild:
++    packagePath: ../../package.json
+Index: apps/custom-ts-lambdas/functions.yml
+===================================================================
+diff --git a/apps/custom-ts-lambdas/functions.yml b/apps/custom-ts-lambdas/functions.yml
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/functions.yml	
+@@ -0,0 +1,5 @@
++enrichComment:
++  handler: src/enrichComment/handler.handler
++  role: 'offline-role'
++  environment:
++    selfPath: ${self:custom.apilogic.lambdaFunctions.custom-ts-lambdas}
+Index: apps/custom-ts-lambdas/jest.config.ts
+===================================================================
+diff --git a/apps/custom-ts-lambdas/jest.config.ts b/apps/custom-ts-lambdas/jest.config.ts
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/jest.config.ts	
+@@ -0,0 +1,16 @@
++/* eslint-disable */
++export default {
++  displayName: 'custom-ts-lambdas',
++  preset: '../../jest.preset.js',
++  globals: {
++    'ts-jest': {
++      tsconfig: '<rootDir>/tsconfig.spec.json',
++    },
++  },
++  testEnvironment: 'node',
++  transform: {
++    '^.+\\.[tj]s$': 'ts-jest',
++  },
++  moduleFileExtensions: ['ts', 'js', 'html'],
++  coverageDirectory: '../../coverage/apps/custom-ts-lambdas',
++};
+Index: apps/appsync/mapping-templates.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/mapping-templates.yml b/apps/appsync/mapping-templates.yml
+--- a/apps/appsync/mapping-templates.yml	
++++ b/apps/appsync/mapping-templates.yml	
+@@ -1,2 +1,3 @@
+ - ${file(${self:custom.apilogic.apiFunctions}/post/mappings.yml)}
+ - ${file(${self:custom.apilogic.apiFunctions}/comment/mappings.yml)}
++- ${file(${self:custom.apilogic.apiFunctions}/comment/mappings.yml)}
+Index: apps/custom-ts-lambdas/src/enrichComment/handler.ts
+===================================================================
+diff --git a/apps/custom-ts-lambdas/src/enrichComment/handler.ts b/apps/custom-ts-lambdas/src/enrichComment/handler.ts
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/src/enrichComment/handler.ts	
+@@ -0,0 +1,6 @@
++import { Context } from 'aws-lambda';
++
++export const handler = async (event: any, context: Context, callback: any) => {
++  console.log('Do something custom...');
++  return callback(null, event);
++};
+Index: apps/custom-ts-lambdas/.env.template
+===================================================================
+diff --git a/apps/custom-ts-lambdas/.env.template b/apps/custom-ts-lambdas/.env.template
+new file mode 100644
+--- /dev/null	
++++ b/apps/custom-ts-lambdas/.env.template	
+@@ -0,0 +1,1 @@
++AWS_ENV=dev
+Index: apps/appsync/custom-resolvers/mapping-templates/request.vtl
+===================================================================
+diff --git a/apps/appsync/custom-resolvers/mapping-templates/request.vtl b/apps/appsync/custom-resolvers/mapping-templates/request.vtl
+new file mode 100644
+--- /dev/null	
++++ b/apps/appsync/custom-resolvers/mapping-templates/request.vtl	
+@@ -0,0 +1,5 @@
++{
++  "version": "2018-05-29",
++  "operation": "Invoke",
++  "payload": $util.toJson($context)
++}
+Index: apps/appsync/custom-resolvers/mapping-templates/response.vtl
+===================================================================
+diff --git a/apps/appsync/custom-resolvers/mapping-templates/response.vtl b/apps/appsync/custom-resolvers/mapping-templates/response.vtl
+new file mode 100644
+--- /dev/null	
++++ b/apps/appsync/custom-resolvers/mapping-templates/response.vtl	
+@@ -0,0 +1,1 @@
++$util.toJson($ctx.stash.payload)
+Index: apps/appsync/custom-resolvers/functions/mapping-functions.yml
+===================================================================
+diff --git a/apps/appsync/custom-resolvers/functions/mapping-functions.yml b/apps/appsync/custom-resolvers/functions/mapping-functions.yml
+new file mode 100644
+--- /dev/null	
++++ b/apps/appsync/custom-resolvers/functions/mapping-functions.yml	
+@@ -0,0 +1,5 @@
++- dataSource: enrichComment
++  name: enrichComment
++  request: ${self:custom.apilogic.customResolversMappings}/request.vtl
++  response: ${self:custom.apilogic.customResolversMappings}/response.vtl
++
+Index: apps/appsync/custom-resolvers/functions/mappings.yml
+===================================================================
+diff --git a/apps/appsync/custom-resolvers/functions/mappings.yml b/apps/appsync/custom-resolvers/functions/mappings.yml
+new file mode 100644
+--- /dev/null	
++++ b/apps/appsync/custom-resolvers/functions/mappings.yml	
+@@ -0,0 +1,1 @@
++
+Index: apps/appsync/custom-resolvers/datasources/datasources.yml
+===================================================================
+diff --git a/apps/appsync/custom-resolvers/datasources/datasources.yml b/apps/appsync/custom-resolvers/datasources/datasources.yml
+new file mode 100644
+--- /dev/null	
++++ b/apps/appsync/custom-resolvers/datasources/datasources.yml	
+@@ -0,0 +1,6 @@
++- type: AWS_LAMBDA
++  name: enrichComment
++  description: 'Lambda dataSource to enrich comment'
++  config: # Either of functionName or lambdaFunctionArn must tbe provided. When both are present, lambdaFunctionArn is used.
++    functionName: enrichComment # this is used for offline
++    lambdaFunctionArn: 'arn:aws:lambda:${self:provider.region}:${self:custom.accountID}:function:custom-ts-lambdas-${self:provider.stage}-enrichComment'
+Index: workspace.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/workspace.json b/workspace.json
+--- a/workspace.json	
++++ b/workspace.json	
+@@ -8,6 +8,7 @@
+     "dynamodb": "apps/dynamodb",
+     "dynamodb-streams": "apps/dynamodb-streams",
+     "elastic-migrations": "apps/elastic-migrations",
+-    "step-functions": "apps/step-functions"
++    "step-functions": "apps/step-functions",
++    "custom-ts-lambdas": "apps/custom-ts-lambdas"
+   }
+ }

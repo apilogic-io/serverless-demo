@@ -1,0 +1,52 @@
+Index: apps/appsync/mapping-templates.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/mapping-templates.yml b/apps/appsync/mapping-templates.yml
+--- a/apps/appsync/mapping-templates.yml	
++++ b/apps/appsync/mapping-templates.yml	
+@@ -1,1 +1,2 @@
+ - ${file(${self:custom.apilogic.apiFunctions}/post/mappings.yml)}
++- ${file(${self:custom.apilogic.apiFunctions}/comment/mappings.yml)}
+Index: apps/appsync/api/mapping-templates/mutations/commentPipeline/before-add-pipeline-mapping-template.vtl
+===================================================================
+diff --git a/apps/appsync/api/mapping-templates/mutations/commentPipeline/before-add-pipeline-mapping-template.vtl b/apps/appsync/api/mapping-templates/mutations/commentPipeline/before-add-pipeline-mapping-template.vtl
+new file mode 100644
+--- /dev/null	
++++ b/apps/appsync/api/mapping-templates/mutations/commentPipeline/before-add-pipeline-mapping-template.vtl	
+@@ -0,0 +1,19 @@
++## Init payload model
++#set($payload = [])
++#set($commentPutItemOperation={})
++
++## Prepare operation
++#set($commentId=$util.autoId())
++#set($comment = $ctx.args.comment)
++#set($comment.postId = $ctx.args.postId)
++
++$util.qr($commentPutItemOperation.put("id", $commentId))
++$util.qr($commentPutItemOperation.put("tableName", "Comments"))
++$util.qr($commentPutItemOperation.put("action", "PutItem"))
++$util.qr($commentPutItemOperation.put("entity", $comment))
++
++## Push operation into operations list
++$util.qr($payload.add($commentPutItemOperation))
++$util.qr($ctx.stash.put("payload", $payload))
++$util.qr($ctx.stash.put("id", $commentId))
++{}
+Index: apps/appsync/api/functions/comment/mappings.yml
+===================================================================
+diff --git a/apps/appsync/api/functions/comment/mappings.yml b/apps/appsync/api/functions/comment/mappings.yml
+new file mode 100644
+--- /dev/null	
++++ b/apps/appsync/api/functions/comment/mappings.yml	
+@@ -0,0 +1,8 @@
++- type: Mutation
++  dataSource: Comments
++  field: addCommentPipeline
++  kind: PIPELINE
++  request: ${self:custom.apilogic.apiMappings}/mutations/commentPipeline/before-add-pipeline-mapping-template.vtl
++  response: ${self:custom.apilogic.apiMappings}/mutations/common/after-pipeline-mapping-template.vtl
++  functions:
++    - modifyEntities

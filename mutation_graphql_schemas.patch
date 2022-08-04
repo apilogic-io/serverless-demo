@@ -1,0 +1,54 @@
+Index: apps/appsync/api/schemas/post/postInputs.graphql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/api/schemas/post/postInputs.graphql b/apps/appsync/api/schemas/post/postInputs.graphql
+--- a/apps/appsync/api/schemas/post/postInputs.graphql	
++++ b/apps/appsync/api/schemas/post/postInputs.graphql	
+@@ -6,6 +6,11 @@
+   author: AuthorInput
+ }
+ 
++input CommentInput {
++  body: String
++  author: AuthorInput
++}
++
+ input PostPatchInput {
+   id: String!
+   title: String
+Index: apps/appsync/api/schemas/post/postTypes.graphql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/api/schemas/post/postTypes.graphql b/apps/appsync/api/schemas/post/postTypes.graphql
+--- a/apps/appsync/api/schemas/post/postTypes.graphql	
++++ b/apps/appsync/api/schemas/post/postTypes.graphql	
+@@ -17,3 +17,9 @@
+ type Author {
+   username: String
+ }
++
++type Comment {
++  id: String
++  body: String
++  author: String
++}
+Index: apps/appsync/schema.graphql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/schema.graphql b/apps/appsync/schema.graphql
+--- a/apps/appsync/schema.graphql	
++++ b/apps/appsync/schema.graphql	
+@@ -6,6 +6,7 @@
+ type Mutation {
+   createPostPipeline(data: PostInput): UpsertOutput!
+   patchPostPipeline(data: PostPatchInput): UpsertOutput!
++  addCommentPipeline(comment: CommentInput, postId: String): UpsertOutput!
+ }
+ 
+ schema {

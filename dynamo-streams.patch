@@ -1,0 +1,90 @@
+Index: apps/jolt-transform/mappings/commentEventJolt.json
+===================================================================
+diff --git a/apps/jolt-transform/mappings/commentEventJolt.json b/apps/jolt-transform/mappings/commentEventJolt.json
+new file mode 100644
+--- /dev/null	
++++ b/apps/jolt-transform/mappings/commentEventJolt.json	
+@@ -0,0 +1,29 @@
++[
++  {
++    "operation": "shift",
++    "spec": {
++      "#comments": "indexName",
++      "eventName": "action",
++      "dynamodb": {
++        "NewImage": {
++          "id": {
++            "S": ["id", "data.id"]
++          },
++          "body": {
++            "S": "data.body"
++          },
++          "author": {
++            "M": {
++              "username": {
++                "S": "data.author.username"
++              }
++            }
++          },
++          "postId": {
++            "S": "data.postId"
++          }
++        }
++      }
++    }
++  }
++]
+Index: apps/appsync/serverless-offline.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/appsync/serverless-offline.yml b/apps/appsync/serverless-offline.yml
+--- a/apps/appsync/serverless-offline.yml	
++++ b/apps/appsync/serverless-offline.yml	
+@@ -128,6 +128,9 @@
+       - table: Posts
+         functions:
+           - upsertEntityExecution
++      - table: Comments
++        functions:
++          - upsertEntityExecution
+ resources:
+   - ${file(resources/resources.yml)}
+   - ${file(../dynamodb/resources.yml)}
+Index: apps/jolt-transform/mappings/events/dynamoEventsMapping.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/jolt-transform/mappings/events/dynamoEventsMapping.yml b/apps/jolt-transform/mappings/events/dynamoEventsMapping.yml
+--- a/apps/jolt-transform/mappings/events/dynamoEventsMapping.yml	
++++ b/apps/jolt-transform/mappings/events/dynamoEventsMapping.yml	
+@@ -1,3 +1,5 @@
+ events:
+   - joltName: postEventJolt
+     tableName: Posts
++  - joltName: commentEventJolt
++    tableName: Comments
+Index: apps/dynamodb-streams/functions.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/dynamodb-streams/functions.yml b/apps/dynamodb-streams/functions.yml
+--- a/apps/dynamodb-streams/functions.yml	
++++ b/apps/dynamodb-streams/functions.yml	
+@@ -5,9 +5,12 @@
+         tableName: Posts
+         streamType: NEW_IMAGE
+         startingPosition: LATEST
++    - existingDynamoStream:
++        tableName: Comments
++        streamType: NEW_IMAGE
++        startingPosition: LATEST
+   environment:
+     lcpName: upsertEntityExecution
+     statemachine_arn: "arn:aws:states:${self:provider.region}:${self:custom.accountID}:stateMachine:UpsertEntityExecution"
+     #    used only for offline
+     selfPath: ${self:custom.apilogic.lambdaFunctions.dynamodb-streams}
+-    isDev: ${self:custom.isDev}
