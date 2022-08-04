@@ -40,10 +40,6 @@ const icons: IconDefinition[] = [HomeOutline];
             loadChildren: () => import('../../pages/list/list.module').then((m) => m.ListModule),
           },
           {
-            path: 'post/new',
-            loadChildren: () => import('../../pages/new/new.module').then((m) => m.NewModule),
-          },
-          {
             path: 'post/:postId',
             loadChildren: () => import('../../pages/details/details.module').then((m) => m.DetailsModule),
           },

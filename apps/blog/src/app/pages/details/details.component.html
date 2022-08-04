@@ -1,1 +1,17 @@
-<p>details works!</p>
+<ng-container *ngIf="post">
+  <nz-row>
+    <h1 nz-col nzSpan="24">{{ post.title }}</h1>
+  </nz-row>
+  <nz-row>
+    <nz-col nzSpan="24">
+      <span nz-typography nzType="secondary">by {{ post.author?.username }}</span>
+    </nz-col>
+  </nz-row>
+  <nz-row>
+    <nz-col nzSpan="24"><p>{{ post.content }}</p></nz-col>
+  </nz-row>
+</ng-container>
+<nz-divider></nz-divider>
+<nz-row>
+  <nz-col nzSpan="24"></nz-col>
+</nz-row>
