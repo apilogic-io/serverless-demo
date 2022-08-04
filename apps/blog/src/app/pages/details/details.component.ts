@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, tap } from 'rxjs';
-import { IPost } from '../../interfaces/post.interface';
+import { finalize, Subscription, tap } from 'rxjs';
+import { authors } from '../../consts/authors.const';
+import { IComment, IPost } from '../../interfaces/post.interface';
 import { PostService } from '../../services/post/post.service';
 
 @Component({
@@ -11,6 +12,9 @@ import { PostService } from '../../services/post/post.service';
 })
 export class DetailsComponent implements OnInit, OnDestroy {
   public post?: IPost;
+  public inputValue: string = '';
+  public submitting: boolean = false;
+  public comments: IComment[] = [];
 
   private _subscription?: Subscription;
 
@@ -24,6 +28,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
         .pipe(
           tap((result) => {
             if (result.data) {
+              if (result.data?.comments) {
+                this.comments.push(result.data?.comments.map((comment: IComment) => comment));
+              }
               this.post = result.data;
             }
           })
@@ -34,5 +41,25 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._subscription?.unsubscribe();
+  }
+
+  public handleSubmit(): void {
+    this.submitting = true;
+    const comment: IComment = {
+      body: this.inputValue,
+      author: authors[0],
+    };
+    if (this.post?.id) {
+      this._service
+        .addComment(comment, this.post?.id)
+        .pipe(
+          tap((response) => {
+            this.comments = [...this.comments, comment];
+            this.inputValue = '';
+          }),
+          finalize(() => (this.submitting = false))
+        )
+        .subscribe();
+    }
   }
 }

@@ -13,5 +13,27 @@
 </ng-container>
 <nz-divider></nz-divider>
 <nz-row>
-  <nz-col nzSpan="24"></nz-col>
+  <nz-col nzSpan="24">
+    <nz-list *ngIf="comments?.length" [nzDataSource]="comments" [nzRenderItem]="comment" [nzItemLayout]="'horizontal'">
+      <ng-template #comment let-comment>
+        <nz-comment [nzAuthor]="comment.author.username!">
+          <nz-comment-content>
+            <p>{{ comment.body }}</p>
+          </nz-comment-content>
+        </nz-comment>
+      </ng-template>
+    </nz-list>
+    <nz-comment>
+      <nz-comment-content>
+        <nz-form-item>
+          <textarea [(ngModel)]="inputValue" nz-input rows="4"></textarea>
+        </nz-form-item>
+        <nz-form-item>
+          <button nz-button nzType="primary" [nzLoading]="submitting" [disabled]="!inputValue" (click)="handleSubmit()">
+            Add Comment
+          </button>
+        </nz-form-item>
+      </nz-comment-content>
+    </nz-comment>
+  </nz-col>
 </nz-row>

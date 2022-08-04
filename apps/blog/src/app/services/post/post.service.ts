@@ -4,7 +4,7 @@ import { Apollo } from 'apollo-angular';
 import { catchError, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IPostList } from '../../interfaces/post-list.interface';
-import { IPost } from '../../interfaces/post.interface';
+import { IComment, IPost } from '../../interfaces/post.interface';
 import { IServerResponse } from '../../interfaces/server-response.interface';
 import { CREATE_POST, FIND_POSTS, GET_POST_BY_ID, PATCH_POST } from './post-gql';
 
@@ -88,5 +88,21 @@ export class PostService {
         return of({ data: null, error: error, loading: false });
       })
     );
+  }
+
+  public addComment(comment: IComment, postId: string, fetchPolicy?: FetchPolicy): Observable<IServerResponse> {
+    // return this._apollo
+    //   .mutate<{ createPostPipeline: IServerResponse }>({
+    //     mutation: ADD_COMMENT,
+    //     variables: { comment, postId },
+    //   })
+    //   .pipe(
+    //     map((mutaionResponse) => {
+    //       const response = { data: mutaionResponse?.data?.createPostPipeline, loading: false };
+    //       return response;
+    //     }),
+    //     catchError((error: any): Observable<IServerResponse> => of({ data: null, error: error, loading: false }))
+    //   );
+    return of({});
   }
 }

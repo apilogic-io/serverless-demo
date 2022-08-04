@@ -41,3 +41,11 @@ export const PATCH_POST = gql`
     }
   }
 `;
+
+// export const ADD_COMMENT = gql`
+//   mutation addCommentPipeline($comment: CommentInput!, $postId: String!) {
+//     patchPostPipeline(comment: $comment, postId: $postId) {
+//       id
+//     }
+//   }
+// `;
