@@ -7,11 +7,9 @@
     "build": "nx build",
     "test": "nx test",
     "offline": "./serverless.sh -a appsync",
-    "offline:custom-ts": "./serverless.sh -a custom-ts-lambdas",
     "offline:debug-node": "./serverless.sh -d 'nodejs'",
-    "offline:debug-node-appsync-java": "./serverless.sh -d 'nodejs appsync-java'",
     "offline:debug-node-step-functions-java": "./serverless.sh -d 'nodejs step-functions-java'",
-    "offline:debug-node-all-java": "./serverless.sh -d 'nodejs appsync-java step-functions-java'",
+    "offline:migrate": "./serverless_migrate.sh",
     "postinstall": "ngcc --properties es2020 browser module main"
   },
   "private": true,
